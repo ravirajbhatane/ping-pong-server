@@ -12,5 +12,6 @@ func ping(w http.ResponseWriter, req *http.Request) {
 func main() {
 	http.HandleFunc("/ping", ping)
 
+	fmt.Println("Listening on port 8090")
 	http.ListenAndServe(":8090", nil)
 }

@@ -1,7 +1,7 @@
 FROM golang:1.20.1
 
-RUN mkdir -p /home/app
+WORKDIR /home
 
-COPY ./app/*.go /home/app
+COPY . /home/
 
 CMD [ "go", "run", "/home/app/ping-pong-server.go" ]

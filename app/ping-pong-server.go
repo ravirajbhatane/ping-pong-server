@@ -5,6 +5,9 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
+	"gopkg.in/mgo.v2"
+
+	"github.com/ravirajbhatane/ping-pong-server/controllers"
 )
 
 func ping(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
@@ -16,8 +19,22 @@ func ping(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 func main() {
 	r := httprouter.New()
 
+	uc := controllers.NewUserConyroller(getSession())
+
 	r.GET("/ping", ping)
+	r.GET("/user/:id", uc.GetUser)
+	r.POST("/user", uc.CreateUser)
+	r.DELETE("/user/:id", uc.DeleteUser)
 
 	fmt.Println("Listening on port 8090")
 	http.ListenAndServe(":8090", r)
+}
+
+func getSession() *mgo.Session {
+	s, err := mgo.Dial("mongodb://127.0.0.1:27017")
+	if err != nil {
+		panic(err)
+	}
+
+	return s
 }

@@ -1,14 +1,47 @@
 # ping-pong-server
 GoLang PingPong server
 
-# Docker instructions
+## Local
+### Build
+```
+  go build  -o ping-pong app/ping-pong-server.go
+``` 
+### Run
+```
+./ping-pong
+```
+### Testing
+- Ping
+    ```
+    curl --location 'http://localhost:8090/ping'
+    ```
+- Create user
+    ```
+    curl --location 'http://localhost:8090/user' \
+    --header 'Content-Type: text/plain' \
+    --data '{
+        "Name":"alex",
+        "Gender":"male",
+        "Age":25
+    }'
+    ```
+- Get user
+    ```
+    curl --location 'http://localhost:8090/user/643c8736a6e6d55fa6936749'
+    ```
+- Delete user
+    ```
+    curl --location --request DELETE 'http://localhost:8090/user/643c8736a6e6d55fa6936749'
+    ```
+
+## Docker
 ```
 cd ../ping-pong-server
 docker build -t ping-pong-server:1.0 .
 docker run -p 8090:8090 ping-pong-server:1.0
 ```
 
-## Testing
+### Testing
 ```
 curl localhost:8090/ping -i
 
@@ -20,7 +53,7 @@ Content-Type: text/plain; charset=utf-8
 pong
 ```
 
-# K8s instructions
+## K8s
 - Create K8s resources
 ```
 kubectl apply -f pingpong.yaml

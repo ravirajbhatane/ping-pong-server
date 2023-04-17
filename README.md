@@ -53,6 +53,17 @@ Content-Type: text/plain; charset=utf-8
 pong
 ```
 
+## Docker-Compose
+### Build and Start
+```
+docker-compose up -d --build
+```
+
+### Stop
+```
+docker-compose down
+```
+
 ## K8s
 - Create K8s resources
 ```
